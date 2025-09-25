@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  passwordHash  String   @map("password_hash")
+  nomeAnonimo   String?  @map("nome_anonimo")
+  telefone      String   @unique
+  idade         Int
+  endereco      String
+  dataRegistro  DateTime @default(now()) @map("data_registro")
+  ultimoAcesso  DateTime @default(now()) @map("ultimo_acesso")
+  
+  // Verificação de conta
+  emailVerificado Boolean @default(false) @map("email_verificado")
+  codigoVerificacao String? @map("codigo_verificacao")
+  codigoExpiresEm DateTime? @map("codigo_expires_em")
+  contaAtiva      Boolean @default(false) @map("conta_ativa")
+  
+  // Relacionamentos
+  conversas     Conversa[]
+  alertas       Alerta[]
+  logsVerificacao LogVerificacaoEmail[]
+  
+  @@map("usuarios")
+}
+
+model Conversa {
+  id           String   @id @default(cuid())
+  usuarioId    String   @map("usuario_id")
+  dataHora     DateTime @default(now()) @map("data_hora")
+  textoUsuario String   @map("texto_usuario")
+  textoIa      String   @map("texto_ia")
+  riscoDetectado Boolean @default(false) @map("risco_detectado")
+  
+  // Contexto etário para filtragem
+  idadeUsuario Int      @map("idade_usuario")
+  faixaEtaria  FaixaEtaria @map("faixa_etaria")
+  
+  // Relacionamentos
+  usuario      Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  alertas      Alerta[]
+  
+  @@map("conversas")
+}
+
+model Alerta {
+  id          String      @id @default(cuid())
+  conversaId  String      @map("conversa_id")
+  usuarioId   String      @map("usuario_id")
+  dataHora    DateTime    @default(now()) @map("data_hora")
+  nivelRisco  NivelRisco  @map("nivel_risco")
+  status      StatusAlerta @default(PENDENTE)
+  detalhes    String
+  
+  // Relacionamentos
+  conversa    Conversa    @relation(fields: [conversaId], references: [id], onDelete: Cascade)
+  usuario     Usuario     @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  
+  @@map("alertas")
+}
+
+model EquipeDeApoio {
+  id         String  @id @default(cuid())
+  email      String  @unique
+  nome       String
+  funcao     String
+  disponivel Boolean @default(true)
+  
+  @@map("equipe_de_apoio")
+}
+
+model LogVerificacaoEmail {
+  id          String   @id @default(cuid())
+  usuarioId   String   @map("usuario_id")
+  codigo      String
+  tentativas  Int      @default(0)
+  sucesso     Boolean  @default(false)
+  dataEnvio   DateTime @default(now()) @map("data_envio")
+  dataExpiracao DateTime @map("data_expiracao")
+  
+  // Relacionamento
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  
+  @@map("logs_verificacao_email")
+}
+
+enum FaixaEtaria {
+  CRIANCA      // 0-12 anos
+  ADOLESCENTE  // 13-17 anos
+  JOVEM_ADULTO // 18-25 anos
+  ADULTO       // 26-59 anos
+  IDOSO        // 60+ anos
+}
+
+enum NivelRisco {
+  BAIXO
+  MEDIO
+  ALTO
+  CRITICO
+}
+
+enum StatusAlerta {
+  PENDENTE
+  EM_ANALISE
+  RESOLVIDO
+}
