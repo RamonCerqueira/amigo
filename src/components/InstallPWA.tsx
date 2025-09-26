@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Download, X, Smartphone, Monitor } from 'lucide-react';
+import { Download, X, Smartphone } from 'lucide-react';
 
 interface BeforeInstallPromptEvent extends Event {
   readonly platforms: string[];
@@ -18,26 +18,31 @@ export default function InstallPWA() {
   const [isInstalled, setIsInstalled] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
   const [isStandalone, setIsStandalone] = useState(false);
+  const [installDismissed, setInstallDismissed] = useState(false);
 
   useEffect(() => {
     // Detectar iOS
     const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     setIsIOS(iOS);
 
-    // Detectar se já está em modo standalone
+    // Detectar modo standalone
     const standalone = window.matchMedia('(display-mode: standalone)').matches ||
-                      (window.navigator as any).standalone ||
-                      document.referrer.includes('android-app://');
+                       (window.navigator as any).standalone ||
+                       document.referrer.includes('android-app://');
     setIsStandalone(standalone);
+
+    // Checar se o prompt foi dispensado
+    const dismissed = sessionStorage.getItem('installPromptDismissed') === 'true';
+    setInstallDismissed(dismissed);
 
     // Listener para evento de instalação
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
-      
+
       // Mostrar prompt após 30 segundos se não estiver instalado
       setTimeout(() => {
-        if (!isInstalled && !standalone) {
+        if (!isInstalled && !standalone && !dismissed) {
           setShowInstallPrompt(true);
         }
       }, 30000);
@@ -66,13 +71,13 @@ export default function InstallPWA() {
     try {
       await deferredPrompt.prompt();
       const choiceResult = await deferredPrompt.userChoice;
-      
+
       if (choiceResult.outcome === 'accepted') {
         console.log('✅ Usuário aceitou instalar o PWA');
       } else {
         console.log('❌ Usuário recusou instalar o PWA');
       }
-      
+
       setDeferredPrompt(null);
       setShowInstallPrompt(false);
     } catch (error) {
@@ -82,12 +87,14 @@ export default function InstallPWA() {
 
   const handleDismiss = () => {
     setShowInstallPrompt(false);
-    // Não mostrar novamente nesta sessão
-    sessionStorage.setItem('installPromptDismissed', 'true');
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('installPromptDismissed', 'true');
+      setInstallDismissed(true);
+    }
   };
 
   // Não mostrar se já está instalado, em modo standalone, ou foi dispensado
-  if (isInstalled || isStandalone || sessionStorage.getItem('installPromptDismissed')) {
+  if (isInstalled || isStandalone || installDismissed) {
     return null;
   }
 
