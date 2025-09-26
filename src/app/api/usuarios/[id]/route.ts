@@ -6,10 +6,7 @@ import { prisma } from "@/lib/prisma";
 // ======================
 // GET - Buscar usuário
 // ======================
-export async function GET(
-  request: NextRequest,
-  context: { params: { id: string } }
-) {
+export async function GET(request: NextRequest, context: any) {
   try {
     const { id } = context.params;
 
@@ -43,24 +40,18 @@ export async function GET(
 // ======================
 // PUT - Atualizar usuário
 // ======================
-export async function PUT(
-  request: NextRequest,
-  context: { params: { id: string } }
-) {
+export async function PUT(request: NextRequest, context: any) {
   try {
     const { id } = context.params;
     const body = await request.json();
 
-    // Verificar se usuário existe
     const usuarioExistente = await buscarUsuarioPorId(id);
     if (!usuarioExistente) {
       return NextResponse.json({ error: "Usuário não encontrado" }, { status: 404 });
     }
 
-    // Validar dados com Zod
     const dadosValidados = atualizarPerfilSchema.parse(body);
 
-    // Verificar se telefone já está em uso por outro usuário
     if (dadosValidados.telefone) {
       const telefoneExistente = await prisma.usuario.findFirst({
         where: {
@@ -77,7 +68,6 @@ export async function PUT(
       }
     }
 
-    // Atualizar usuário
     const usuarioAtualizado = await prisma.usuario.update({
       where: { id },
       data: {
@@ -110,7 +100,6 @@ export async function PUT(
     console.error("Erro ao atualizar usuário:", error);
 
     if (error.errors) {
-      // Erros de validação do Zod
       return NextResponse.json(
         {
           error: "Dados inválidos",
@@ -130,20 +119,15 @@ export async function PUT(
 // ======================
 // DELETE - Desativar usuário
 // ======================
-export async function DELETE(
-  request: NextRequest,
-  context: { params: { id: string } }
-) {
+export async function DELETE(request: NextRequest, context: any) {
   try {
     const { id } = context.params;
 
-    // Verificar se usuário existe
     const usuarioExistente = await buscarUsuarioPorId(id);
     if (!usuarioExistente) {
       return NextResponse.json({ error: "Usuário não encontrado" }, { status: 404 });
     }
 
-    // Desativar conta (não deletar)
     await prisma.usuario.update({
       where: { id },
       data: {
