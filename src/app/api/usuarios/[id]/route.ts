@@ -1,9 +1,11 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { atualizarPerfilSchema } from '@/lib/validations';
-import { buscarUsuarioPorId } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
+import { NextRequest, NextResponse } from "next/server";
+import { atualizarPerfilSchema } from "@/lib/validations";
+import { buscarUsuarioPorId } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
 
-// GET - Buscar dados do usuário
+// ======================
+// GET - Buscar usuário
+// ======================
 export async function GET(
   request: NextRequest,
   context: { params: { id: string } }
@@ -23,31 +25,24 @@ export async function GET(
         dataRegistro: true,
         ultimoAcesso: true,
         emailVerificado: true,
-        contaAtiva: true
-      }
+        contaAtiva: true,
+      },
     });
 
     if (!usuario) {
-      return NextResponse.json({
-        error: 'Usuário não encontrado'
-      }, { status: 404 });
+      return NextResponse.json({ error: "Usuário não encontrado" }, { status: 404 });
     }
 
-    return NextResponse.json({
-      success: true,
-      usuario
-    }, { status: 200 });
-
-  } catch (error: any) {
-    console.error('Erro ao buscar usuário:', error);
-
-    return NextResponse.json({
-      error: 'Erro interno do servidor'
-    }, { status: 500 });
+    return NextResponse.json({ success: true, usuario }, { status: 200 });
+  } catch (error) {
+    console.error("Erro ao buscar usuário:", error);
+    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
   }
 }
 
-// PUT - Atualizar dados do usuário
+// ======================
+// PUT - Atualizar usuário
+// ======================
 export async function PUT(
   request: NextRequest,
   context: { params: { id: string } }
@@ -59,12 +54,10 @@ export async function PUT(
     // Verificar se usuário existe
     const usuarioExistente = await buscarUsuarioPorId(id);
     if (!usuarioExistente) {
-      return NextResponse.json({
-        error: 'Usuário não encontrado'
-      }, { status: 404 });
+      return NextResponse.json({ error: "Usuário não encontrado" }, { status: 404 });
     }
 
-    // Validar dados com Zod (apenas campos que podem ser atualizados)
+    // Validar dados com Zod
     const dadosValidados = atualizarPerfilSchema.parse(body);
 
     // Verificar se telefone já está em uso por outro usuário
@@ -72,14 +65,15 @@ export async function PUT(
       const telefoneExistente = await prisma.usuario.findFirst({
         where: {
           telefone: dadosValidados.telefone,
-          id: { not: id }
-        }
+          id: { not: id },
+        },
       });
 
       if (telefoneExistente) {
-        return NextResponse.json({
-          error: 'Telefone já está em uso por outro usuário'
-        }, { status: 409 });
+        return NextResponse.json(
+          { error: "Telefone já está em uso por outro usuário" },
+          { status: 409 }
+        );
       }
     }
 
@@ -88,7 +82,7 @@ export async function PUT(
       where: { id },
       data: {
         ...dadosValidados,
-        ultimoAcesso: new Date()
+        ultimoAcesso: new Date(),
       },
       select: {
         id: true,
@@ -100,38 +94,42 @@ export async function PUT(
         dataRegistro: true,
         ultimoAcesso: true,
         emailVerificado: true,
-        contaAtiva: true
-      }
+        contaAtiva: true,
+      },
     });
 
-    return NextResponse.json({
-      success: true,
-      message: 'Perfil atualizado com sucesso',
-      usuario: usuarioAtualizado
-    }, { status: 200 });
-
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Perfil atualizado com sucesso",
+        usuario: usuarioAtualizado,
+      },
+      { status: 200 }
+    );
   } catch (error: any) {
-    console.error('Erro ao atualizar usuário:', error);
+    console.error("Erro ao atualizar usuário:", error);
 
-    // Erro de validação Zod
     if (error.errors) {
-      return NextResponse.json({
-        error: 'Dados inválidos',
-        details: error.errors.map((err: any) => ({
-          field: err.path[0],
-          message: err.message
-        }))
-      }, { status: 400 });
+      // Erros de validação do Zod
+      return NextResponse.json(
+        {
+          error: "Dados inválidos",
+          details: error.errors.map((err: any) => ({
+            field: err.path[0],
+            message: err.message,
+          })),
+        },
+        { status: 400 }
+      );
     }
 
-    // Erro genérico
-    return NextResponse.json({
-      error: 'Erro interno do servidor'
-    }, { status: 500 });
+    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
   }
 }
 
-// DELETE - Desativar conta do usuário
+// ======================
+// DELETE - Desativar usuário
+// ======================
 export async function DELETE(
   request: NextRequest,
   context: { params: { id: string } }
@@ -142,30 +140,24 @@ export async function DELETE(
     // Verificar se usuário existe
     const usuarioExistente = await buscarUsuarioPorId(id);
     if (!usuarioExistente) {
-      return NextResponse.json({
-        error: 'Usuário não encontrado'
-      }, { status: 404 });
+      return NextResponse.json({ error: "Usuário não encontrado" }, { status: 404 });
     }
 
-    // Em vez de deletar, desativar a conta
+    // Desativar conta (não deletar)
     await prisma.usuario.update({
       where: { id },
       data: {
         contaAtiva: false,
-        ultimoAcesso: new Date()
-      }
+        ultimoAcesso: new Date(),
+      },
     });
 
-    return NextResponse.json({
-      success: true,
-      message: 'Conta desativada com sucesso'
-    }, { status: 200 });
-
-  } catch (error: any) {
-    console.error('Erro ao desativar usuário:', error);
-
-    return NextResponse.json({
-      error: 'Erro interno do servidor'
-    }, { status: 500 });
+    return NextResponse.json(
+      { success: true, message: "Conta desativada com sucesso" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Erro ao desativar usuário:", error);
+    return NextResponse.json({ error: "Erro interno do servidor" }, { status: 500 });
   }
 }
