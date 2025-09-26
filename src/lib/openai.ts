@@ -304,7 +304,8 @@ export async function gerarAudio(texto: string): Promise<Buffer | null> {
 export async function transcreverAudio(audioBuffer: Buffer): Promise<string | null> {
   try {
     // Criar um arquivo temporário para o áudio
-    const file = new File([audioBuffer], 'audio.webm', { type: 'audio/webm' });
+    // const file = new File([audioBuffer], 'audio.webm', { type: 'audio/webm' });
+const file = new File([new Uint8Array(audioBuffer)], 'audio.webm', { type: 'audio/webm' });
 
     const transcription = await openai.audio.transcriptions.create({
       file: file,
