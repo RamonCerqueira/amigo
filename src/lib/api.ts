@@ -1,4 +1,5 @@
 // Utilitários para fazer requisições HTTP no frontend
+import { useState } from 'react';
 
 interface ApiResponse<T = any> {
   success: boolean;

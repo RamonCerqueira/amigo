@@ -5,60 +5,59 @@ import { gerarRespostaIA, analisarSentimento } from '@/lib/openai';
 import { criarAlerta } from '@/lib/alertas';
 import { determinarFaixaEtaria } from '@/lib/validations';
 
+// Tipagem segura para contexto adicional do alerta
+interface ContextoAdicionalAlerta {
+  sentimento: {
+    sentimento: 'positivo' | 'neutro' | 'negativo';
+    confianca: number;
+    emocoes: string[];
+  };
+  faixaEtaria: 'CRIANCA' | 'ADOLESCENTE' | 'JOVEM_ADULTO' | 'ADULTO' | 'IDOSO';
+  totalConversas: number;
+}
+
+// Tipagem de alerta usada na função criarAlerta
+export interface DadosAlerta {
+  conversaId: string;
+  usuarioId: string;
+  nivelRisco: string;
+  detalhes: string;
+  palavrasChave?: string[];
+  contextoAdicional?: ContextoAdicionalAlerta;
+}
+
 // POST - Nova conversa com OpenAI
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    // Validar dados básicos
     if (!body.usuarioId) {
-      return NextResponse.json({
-        error: 'ID do usuário é obrigatório'
-      }, { status: 400 });
+      return NextResponse.json({ error: 'ID do usuário é obrigatório' }, { status: 400 });
     }
 
-    // Validar texto da conversa
-    const dadosValidados = conversaSchema.parse({
-      textoUsuario: body.textoUsuario
-    });
+    const dadosValidados = conversaSchema.parse({ textoUsuario: body.textoUsuario });
 
-    // Verificar se usuário existe e está ativo
     const usuario = await buscarUsuarioPorId(body.usuarioId);
-    if (!usuario) {
-      return NextResponse.json({
-        error: 'Usuário não encontrado'
-      }, { status: 404 });
-    }
+    if (!usuario) return NextResponse.json({ error: 'Usuário não encontrado' }, { status: 404 });
+    if (!usuario.contaAtiva) return NextResponse.json({ error: 'Conta não está ativa' }, { status: 403 });
 
-    if (!usuario.contaAtiva) {
-      return NextResponse.json({
-        error: 'Conta não está ativa'
-      }, { status: 403 });
-    }
-
-    // Buscar histórico recente para contexto
     const historicoRecente = await buscarHistoricoConversas(body.usuarioId, 6);
 
-    // Preparar contexto para a IA
     const contexto = {
       usuarioId: body.usuarioId,
       idade: usuario.idade,
       faixaEtaria: determinarFaixaEtaria(usuario.idade),
       nomeAnonimo: usuario.nomeAnonimo,
-      historicoRecente: historicoRecente.map(conversa => ({
-        textoUsuario: conversa.textoUsuario,
-        textoIa: conversa.textoIa,
-        dataHora: conversa.dataHora
+      historicoRecente: historicoRecente.map(c => ({
+        textoUsuario: c.textoUsuario,
+        textoIa: c.textoIa,
+        dataHora: c.dataHora
       }))
     };
 
-    // Gerar resposta com OpenAI
     const respostaIA = await gerarRespostaIA(dadosValidados.textoUsuario, contexto);
-
-    // Analisar sentimento da mensagem do usuário
     const analiseEmocional = await analisarSentimento(dadosValidados.textoUsuario);
 
-    // Salvar conversa no banco
     const conversa = await salvarConversa({
       usuarioId: body.usuarioId,
       textoUsuario: dadosValidados.textoUsuario,
@@ -66,11 +65,9 @@ export async function POST(request: NextRequest) {
       riscoDetectado: respostaIA.riscoDetectado
     });
 
-    // Criar alerta se risco foi detectado
     let alertaId: string | null = null;
     if (respostaIA.riscoDetectado && respostaIA.nivelRisco) {
       try {
-        // Preparar detalhes do alerta
         const detalhesAlerta = `
 Risco detectado: ${respostaIA.nivelRisco}
 Palavras-chave: ${respostaIA.palavrasChave?.join(', ') || 'N/A'}
@@ -97,11 +94,8 @@ Contexto do usuário:
             totalConversas: historicoRecente.length
           }
         });
-
-        console.log(`🚨 ALERTA CRIADO: ${respostaIA.nivelRisco} - Usuário: ${body.usuarioId} - Alerta: ${alertaId}`);
       } catch (alertaError) {
         console.error('Erro ao criar alerta:', alertaError);
-        // Não falhar a conversa por causa do alerta
       }
     }
 
@@ -119,7 +113,7 @@ Contexto do usuário:
           detectado: respostaIA.riscoDetectado,
           nivel: respostaIA.nivelRisco,
           palavrasChave: respostaIA.palavrasChave,
-          alertaId: alertaId
+          alertaId
         },
         sentimento: analiseEmocional,
         recomendacoes: respostaIA.recomendacoes
@@ -129,7 +123,6 @@ Contexto do usuário:
   } catch (error: any) {
     console.error('Erro ao processar conversa com OpenAI:', error);
 
-    // Erro de validação Zod
     if (error.errors) {
       return NextResponse.json({
         error: 'Dados inválidos',
@@ -140,7 +133,6 @@ Contexto do usuário:
       }, { status: 400 });
     }
 
-    // Erro de API da OpenAI
     if (error.status === 429) {
       return NextResponse.json({
         error: 'Muitas requisições. Tente novamente em alguns segundos.',
@@ -155,12 +147,11 @@ Contexto do usuário:
       }, { status: 500 });
     }
 
-    // Erro genérico - usar fallback
     return NextResponse.json({
       error: 'Erro temporário. Usando resposta de emergência.',
       fallback: true,
       conversa: {
-        textoIa: 'Desculpe, estou com dificuldades técnicas no momento. Mas quero que saiba que estou aqui para te apoiar. Seus sentimentos são importantes e válidos. Pode tentar conversar novamente em alguns minutos?',
+        textoIa: 'Desculpe, estou com dificuldades técnicas no momento. Mas estou aqui para te apoiar.',
         riscoDetectado: false
       }
     }, { status: 200 });
