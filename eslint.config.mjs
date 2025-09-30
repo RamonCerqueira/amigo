@@ -19,22 +19,6 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
     ],
-    rules: {
-      // Permite usar any temporariamente
-      "@typescript-eslint/no-explicit-any": "off",
-
-      // Ignora strings não escapadas em JSX
-      "react/no-unescaped-entities": "off",
-
-      // Variáveis não usadas geram aviso, não erro
-      "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
-
-      // Permite imports não usados gerarem aviso
-      "no-unused-vars": ["warn"],
-
-      // Outros ajustes opcionais
-      "@typescript-eslint/explicit-module-boundary-types": "off",
-    },
   },
 ];
 

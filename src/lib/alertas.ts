@@ -8,7 +8,7 @@ interface DadosAlerta {
   nivelRisco: NivelRisco;
   detalhes: string;
   palavrasChave?: string[];
-  contextoAdicional?: never;
+  contextoAdicional?: any;
 }
 
 // Interface para notificação

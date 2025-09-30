@@ -97,7 +97,7 @@ export default function InstallPWA() {
       <div className="fixed bottom-4 left-4 right-4 bg-white border border-gray-200 rounded-lg shadow-lg p-4 z-50 max-w-sm mx-auto">
         <div className="flex items-start space-x-3">
           <div className="flex-shrink-0">
-            <Smartphone className="w-6 h-6 text-blue-600" />
+            <Smartphone className="w-6 h-6 text-yellow-600" />
           </div>
           <div className="flex-1">
             <h3 className="text-sm font-medium text-gray-800 mb-1">
@@ -113,7 +113,7 @@ export default function InstallPWA() {
             </ol>
             <button
               onClick={handleDismiss}
-              className="text-xs text-blue-600 hover:text-blue-800"
+              className="text-xs text-yellow-600 hover:text-yellow-800"
             >
               Entendi
             </button>
@@ -135,7 +135,7 @@ export default function InstallPWA() {
       <div className="fixed bottom-4 left-4 right-4 bg-white border border-gray-200 rounded-lg shadow-lg p-4 z-50 max-w-sm mx-auto">
         <div className="flex items-start space-x-3">
           <div className="flex-shrink-0">
-            <Download className="w-6 h-6 text-blue-600" />
+            <Download className="w-6 h-6 text-yellow-600" />
           </div>
           <div className="flex-1">
             <h3 className="text-sm font-medium text-gray-800 mb-1">
@@ -147,7 +147,7 @@ export default function InstallPWA() {
             <div className="flex space-x-2">
               <button
                 onClick={handleInstallClick}
-                className="flex items-center space-x-1 px-3 py-1 bg-blue-600 text-white text-xs rounded hover:bg-blue-700 transition-colors"
+                className="flex items-center space-x-1 px-3 py-1 bg-yellow-600 text-white text-xs rounded hover:bg-yellow-700 transition-colors"
               >
                 <Download className="w-3 h-3" />
                 <span>Instalar</span>

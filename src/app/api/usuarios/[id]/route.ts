@@ -6,10 +6,10 @@ import { prisma } from '@/lib/prisma';
 // GET - Buscar dados do usuário
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = context.params;
+    const { id } = params;
 
     const usuario = await prisma.usuario.findUnique({
       where: { id },
@@ -50,10 +50,10 @@ export async function GET(
 // PUT - Atualizar dados do usuário
 export async function PUT(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = context.params;
+    const { id } = params;
     const body = await request.json();
 
     // Verificar se usuário existe
@@ -134,10 +134,10 @@ export async function PUT(
 // DELETE - Desativar conta do usuário
 export async function DELETE(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = context.params;
+    const { id } = params;
 
     // Verificar se usuário existe
     const usuarioExistente = await buscarUsuarioPorId(id);

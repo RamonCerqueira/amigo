@@ -72,9 +72,9 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-yellow-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+          <div className="animate-spin w-12 h-12 border-4 border-yellow-500 border-t-transparent rounded-full mx-auto mb-4"></div>
           <p className="text-gray-600">Carregando seu espaço...</p>
         </div>
       </div>
@@ -82,13 +82,13 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-yellow-50">
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center">
                 <Heart className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -100,7 +100,7 @@ export default function Dashboard() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <button className="p-2 text-gray-600 hover:text-blue-600 transition-colors">
+              <button className="p-2 text-gray-600 hover:text-yellow-600 transition-colors">
                 <Settings className="w-5 h-5" />
               </button>
               <button className="p-2 text-gray-600 hover:text-red-600 transition-colors">
@@ -150,10 +150,10 @@ export default function Dashboard() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <MessageCircle className="w-4 h-4 text-blue-600" />
+                    <MessageCircle className="w-4 h-4 text-yellow-600" />
                     <span className="text-sm text-gray-600">Conversas hoje</span>
                   </div>
-                  <span className="font-semibold text-blue-600">
+                  <span className="font-semibold text-yellow-600">
                     {dashboardData?.estatisticas.conversasHoje || 0}
                   </span>
                 </div>
@@ -170,10 +170,10 @@ export default function Dashboard() {
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2">
-                    <Heart className="w-4 h-4 text-purple-600" />
+                    <Heart className="w-4 h-4 text-yellow-600" />
                     <span className="text-sm text-gray-600">Total</span>
                   </div>
-                  <span className="font-semibold text-purple-600">
+                  <span className="font-semibold text-yellow-600">
                     {dashboardData?.estatisticas.totalConversas || 0}
                   </span>
                 </div>
@@ -187,14 +187,14 @@ export default function Dashboard() {
                 
                 <div className="space-y-3">
                   {dashboardData.recomendacoes.map((rec, index) => (
-                    <div key={index} className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                      <h4 className="text-sm font-medium text-blue-800 mb-1">
+                    <div key={index} className="p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+                      <h4 className="text-sm font-medium text-yellow-800 mb-1">
                         {rec.titulo}
                       </h4>
-                      <p className="text-xs text-blue-700 mb-2">
+                      <p className="text-xs text-yellow-700 mb-2">
                         {rec.descricao}
                       </p>
-                      <button className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded hover:bg-blue-200 transition-colors">
+                      <button className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded hover:bg-yellow-200 transition-colors">
                         {rec.acao}
                       </button>
                     </div>
@@ -210,7 +210,7 @@ export default function Dashboard() {
                   onClick={() => setActiveTab('conversa')}
                   className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
                     activeTab === 'conversa' 
-                      ? 'bg-blue-100 text-blue-700' 
+                      ? 'bg-yellow-100 text-yellow-700' 
                       : 'text-gray-600 hover:bg-gray-100'
                   }`}
                 >
@@ -222,7 +222,7 @@ export default function Dashboard() {
                   onClick={() => setActiveTab('estatisticas')}
                   className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
                     activeTab === 'estatisticas' 
-                      ? 'bg-blue-100 text-blue-700' 
+                      ? 'bg-yellow-100 text-yellow-700' 
                       : 'text-gray-600 hover:bg-gray-100'
                   }`}
                 >
@@ -234,7 +234,7 @@ export default function Dashboard() {
                   onClick={() => setActiveTab('historico')}
                   className={`w-full text-left px-3 py-2 rounded-lg transition-colors ${
                     activeTab === 'historico' 
-                      ? 'bg-blue-100 text-blue-700' 
+                      ? 'bg-yellow-100 text-yellow-700' 
                       : 'text-gray-600 hover:bg-gray-100'
                   }`}
                 >
@@ -262,20 +262,20 @@ export default function Dashboard() {
                 <h2 className="text-xl font-semibold text-gray-800 mb-6">Estatísticas Detalhadas</h2>
                 
                 <div className="grid md:grid-cols-2 gap-6">
-                  <div className="p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg">
-                    <h3 className="text-lg font-medium text-blue-800 mb-2">Progresso Semanal</h3>
-                    <p className="text-3xl font-bold text-blue-600">
+                  <div className="p-4 bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-lg">
+                    <h3 className="text-lg font-medium text-yellow-800 mb-2">Progresso Semanal</h3>
+                    <p className="text-3xl font-bold text-yellow-600">
                       {dashboardData?.estatisticas.conversasSemana || 0}
                     </p>
-                    <p className="text-sm text-blue-700">conversas esta semana</p>
+                    <p className="text-sm text-yellow-700">conversas esta semana</p>
                   </div>
 
-                  <div className="p-4 bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg">
-                    <h3 className="text-lg font-medium text-purple-800 mb-2">Jornada Total</h3>
-                    <p className="text-3xl font-bold text-purple-600">
+                  <div className="p-4 bg-gradient-to-r from-yellow-50 to-yellow-100 rounded-lg">
+                    <h3 className="text-lg font-medium text-yellow-800 mb-2">Jornada Total</h3>
+                    <p className="text-3xl font-bold text-yellow-600">
                       {dashboardData?.estatisticas.totalConversas || 0}
                     </p>
-                    <p className="text-sm text-purple-700">conversas no total</p>
+                    <p className="text-sm text-yellow-700">conversas no total</p>
                   </div>
                 </div>
 
@@ -329,8 +329,8 @@ export default function Dashboard() {
                         </div>
                         
                         <div className="space-y-2">
-                          <div className="bg-blue-50 p-3 rounded">
-                            <p className="text-sm text-blue-800">
+                          <div className="bg-yellow-50 p-3 rounded">
+                            <p className="text-sm text-yellow-800">
                               <strong>Você:</strong> {conversa.textoUsuario}
                             </p>
                           </div>

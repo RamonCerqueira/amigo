@@ -1,14 +1,14 @@
 -- CreateEnum
-CREATE TYPE "public"."FaixaEtaria" AS ENUM ('CRIANCA', 'ADOLESCENTE', 'JOVEM_ADULTO', 'ADULTO', 'IDOSO');
+CREATE TYPE "FaixaEtaria" AS ENUM ('CRIANCA', 'ADOLESCENTE', 'JOVEM_ADULTO', 'ADULTO', 'IDOSO');
 
 -- CreateEnum
-CREATE TYPE "public"."NivelRisco" AS ENUM ('BAIXO', 'MEDIO', 'ALTO', 'CRITICO');
+CREATE TYPE "NivelRisco" AS ENUM ('BAIXO', 'MEDIO', 'ALTO', 'CRITICO');
 
 -- CreateEnum
-CREATE TYPE "public"."StatusAlerta" AS ENUM ('PENDENTE', 'EM_ANALISE', 'RESOLVIDO');
+CREATE TYPE "StatusAlerta" AS ENUM ('PENDENTE', 'EM_ANALISE', 'RESOLVIDO');
 
 -- CreateTable
-CREATE TABLE "public"."usuarios" (
+CREATE TABLE "usuarios" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password_hash" TEXT NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE "public"."usuarios" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."conversas" (
+CREATE TABLE "conversas" (
     "id" TEXT NOT NULL,
     "usuario_id" TEXT NOT NULL,
     "data_hora" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -35,26 +35,26 @@ CREATE TABLE "public"."conversas" (
     "texto_ia" TEXT NOT NULL,
     "risco_detectado" BOOLEAN NOT NULL DEFAULT false,
     "idade_usuario" INTEGER NOT NULL,
-    "faixa_etaria" "public"."FaixaEtaria" NOT NULL,
+    "faixa_etaria" "FaixaEtaria" NOT NULL,
 
     CONSTRAINT "conversas_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "public"."alertas" (
+CREATE TABLE "alertas" (
     "id" TEXT NOT NULL,
     "conversa_id" TEXT NOT NULL,
     "usuario_id" TEXT NOT NULL,
     "data_hora" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "nivel_risco" "public"."NivelRisco" NOT NULL,
-    "status" "public"."StatusAlerta" NOT NULL DEFAULT 'PENDENTE',
+    "nivel_risco" "NivelRisco" NOT NULL,
+    "status" "StatusAlerta" NOT NULL DEFAULT 'PENDENTE',
     "detalhes" TEXT NOT NULL,
 
     CONSTRAINT "alertas_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "public"."equipe_de_apoio" (
+CREATE TABLE "equipe_de_apoio" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "nome" TEXT NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE "public"."equipe_de_apoio" (
 );
 
 -- CreateTable
-CREATE TABLE "public"."logs_verificacao_email" (
+CREATE TABLE "logs_verificacao_email" (
     "id" TEXT NOT NULL,
     "usuario_id" TEXT NOT NULL,
     "codigo" TEXT NOT NULL,
@@ -78,22 +78,22 @@ CREATE TABLE "public"."logs_verificacao_email" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "usuarios_email_key" ON "public"."usuarios"("email");
+CREATE UNIQUE INDEX "usuarios_email_key" ON "usuarios"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "usuarios_telefone_key" ON "public"."usuarios"("telefone");
+CREATE UNIQUE INDEX "usuarios_telefone_key" ON "usuarios"("telefone");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "equipe_de_apoio_email_key" ON "public"."equipe_de_apoio"("email");
+CREATE UNIQUE INDEX "equipe_de_apoio_email_key" ON "equipe_de_apoio"("email");
 
 -- AddForeignKey
-ALTER TABLE "public"."conversas" ADD CONSTRAINT "conversas_usuario_id_fkey" FOREIGN KEY ("usuario_id") REFERENCES "public"."usuarios"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "conversas" ADD CONSTRAINT "conversas_usuario_id_fkey" FOREIGN KEY ("usuario_id") REFERENCES "usuarios"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."alertas" ADD CONSTRAINT "alertas_conversa_id_fkey" FOREIGN KEY ("conversa_id") REFERENCES "public"."conversas"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "alertas" ADD CONSTRAINT "alertas_conversa_id_fkey" FOREIGN KEY ("conversa_id") REFERENCES "conversas"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."alertas" ADD CONSTRAINT "alertas_usuario_id_fkey" FOREIGN KEY ("usuario_id") REFERENCES "public"."usuarios"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "alertas" ADD CONSTRAINT "alertas_usuario_id_fkey" FOREIGN KEY ("usuario_id") REFERENCES "usuarios"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "public"."logs_verificacao_email" ADD CONSTRAINT "logs_verificacao_email_usuario_id_fkey" FOREIGN KEY ("usuario_id") REFERENCES "public"."usuarios"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "logs_verificacao_email" ADD CONSTRAINT "logs_verificacao_email_usuario_id_fkey" FOREIGN KEY ("usuario_id") REFERENCES "usuarios"("id") ON DELETE CASCADE ON UPDATE CASCADE;

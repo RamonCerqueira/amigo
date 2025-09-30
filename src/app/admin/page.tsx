@@ -164,7 +164,7 @@ export default function AdminPanel() {
       case 'CRITICO': return 'text-red-600 bg-red-100';
       case 'ALTO': return 'text-orange-600 bg-orange-100';
       case 'MEDIO': return 'text-yellow-600 bg-yellow-100';
-      case 'BAIXO': return 'text-blue-600 bg-blue-100';
+      case 'BAIXO': return 'text-yellow-600 bg-yellow-100';
       default: return 'text-gray-600 bg-gray-100';
     }
   };
@@ -182,7 +182,7 @@ export default function AdminPanel() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+          <div className="animate-spin w-12 h-12 border-4 border-yellow-500 border-t-transparent rounded-full mx-auto mb-4"></div>
           <p className="text-gray-600">Carregando painel administrativo...</p>
         </div>
       </div>
@@ -196,7 +196,7 @@ export default function AdminPanel() {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+              <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center">
                 <Shield className="w-6 h-6 text-white" />
               </div>
               <div>
@@ -207,7 +207,7 @@ export default function AdminPanel() {
 
             <button
               onClick={carregarDados}
-              className="flex items-center space-x-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
             >
               <RefreshCw className="w-4 h-4" />
               <span>Atualizar</span>
@@ -254,9 +254,9 @@ export default function AdminPanel() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm text-gray-600">Últimos 7 dias</p>
-                  <p className="text-2xl font-bold text-blue-600">{estatisticas.ultimos7Dias}</p>
+                  <p className="text-2xl font-bold text-yellow-600">{estatisticas.ultimos7Dias}</p>
                 </div>
-                <TrendingUp className="w-8 h-8 text-blue-600" />
+                <TrendingUp className="w-8 h-8 text-yellow-600" />
               </div>
             </div>
           </div>
@@ -270,7 +270,7 @@ export default function AdminPanel() {
                 onClick={() => setActiveTab('alertas')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${
                   activeTab === 'alertas'
-                    ? 'border-blue-500 text-blue-600'
+                    ? 'border-yellow-500 text-yellow-600'
                     : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
               >
@@ -282,7 +282,7 @@ export default function AdminPanel() {
                 onClick={() => setActiveTab('equipe')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${
                   activeTab === 'equipe'
-                    ? 'border-blue-500 text-blue-600'
+                    ? 'border-yellow-500 text-yellow-600'
                     : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
               >
@@ -294,7 +294,7 @@ export default function AdminPanel() {
                 onClick={() => setActiveTab('estatisticas')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${
                   activeTab === 'estatisticas'
-                    ? 'border-blue-500 text-blue-600'
+                    ? 'border-yellow-500 text-yellow-600'
                     : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
               >
@@ -350,7 +350,7 @@ export default function AdminPanel() {
                           <div className="flex items-center space-x-2 ml-4">
                             <button
                               onClick={() => setAlertaSelecionado(alerta)}
-                              className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                              className="p-2 text-yellow-600 hover:bg-yellow-50 rounded-lg transition-colors"
                               title="Ver detalhes"
                             >
                               <Eye className="w-4 h-4" />
@@ -509,8 +509,8 @@ export default function AdminPanel() {
 
                 <div>
                   <label className="text-sm font-medium text-gray-600">Mensagem do Usuário</label>
-                  <div className="mt-1 p-3 bg-blue-50 rounded-lg">
-                    <p className="text-sm text-blue-800">"{alertaSelecionado.conversa.textoUsuario}"</p>
+                  <div className="mt-1 p-3 bg-yellow-50 rounded-lg">
+                    <p className="text-sm text-yellow-800">"{alertaSelecionado.conversa.textoUsuario}"</p>
                   </div>
                 </div>
 

@@ -265,14 +265,14 @@ export default function ConversaVoz({ usuarioId, onNovaConversa, onRiscoDetectad
   return (
     <div className="flex flex-col h-full max-h-[600px] bg-white rounded-lg shadow-lg border border-gray-200">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-blue-50 to-purple-50">
+      <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-gradient-to-r from-yellow-50 to-yellow-50">
         <h3 className="text-lg font-semibold text-gray-800">Conversa com Amigo</h3>
         <div className="flex items-center space-x-2">
           <button
             onClick={() => setAudioHabilitado(!audioHabilitado)}
             className={`p-2 rounded-full transition-colors ${
               audioHabilitado 
-                ? 'bg-blue-100 text-blue-600 hover:bg-blue-200' 
+                ? 'bg-yellow-100 text-yellow-600 hover:bg-yellow-200' 
                 : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
             }`}
             title={audioHabilitado ? 'Desabilitar áudio' : 'Habilitar áudio'}
@@ -309,7 +309,7 @@ export default function ConversaVoz({ usuarioId, onNovaConversa, onRiscoDetectad
             <div
               className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                 mensagem.tipo === 'usuario'
-                  ? 'bg-blue-500 text-white'
+                  ? 'bg-yellow-500 text-white'
                   : 'bg-gray-100 text-gray-800'
               }`}
             >
@@ -373,7 +373,7 @@ export default function ConversaVoz({ usuarioId, onNovaConversa, onRiscoDetectad
             className={`p-4 rounded-full transition-all duration-200 ${
               isGravando
                 ? 'bg-red-500 hover:bg-red-600 text-white animate-pulse'
-                : 'bg-blue-500 hover:bg-blue-600 text-white hover:scale-105'
+                : 'bg-yellow-500 hover:bg-yellow-600 text-white hover:scale-105'
             } disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none`}
           >
             {isGravando ? <MicOff className="w-6 h-6" /> : <Mic className="w-6 h-6" />}
@@ -392,12 +392,12 @@ export default function ConversaVoz({ usuarioId, onNovaConversa, onRiscoDetectad
             onChange={(e) => setTextoDigitado(e.target.value)}
             placeholder="Ou digite sua mensagem..."
             disabled={isProcessando || isGravando}
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm disabled:opacity-50"
+            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent text-sm disabled:opacity-50"
           />
           <button
             type="submit"
             disabled={!textoDigitado.trim() || isProcessando || isGravando}
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Send className="w-4 h-4" />
           </button>

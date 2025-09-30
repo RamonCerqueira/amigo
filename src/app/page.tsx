@@ -32,27 +32,27 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-yellow-50">
       {/* Header */}
       <header className="container mx-auto px-6 py-8">
         <nav className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center">
               <Heart className="w-6 h-6 text-white" />
             </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-600 bg-clip-text text-transparent">
               Amigo
             </span>
           </div>
           
           <div className="hidden md:flex items-center space-x-8">
-            <Link href="/sobre" className="text-gray-600 hover:text-blue-600 transition-colors">
+            <Link href="/sobre" className="text-gray-600 hover:text-yellow-600 transition-colors">
               Sobre
             </Link>
-            <Link href="/como-funciona" className="text-gray-600 hover:text-blue-600 transition-colors">
+            <Link href="/como-funciona" className="text-gray-600 hover:text-yellow-600 transition-colors">
               Como Funciona
             </Link>
-            <Link href="/contato" className="text-gray-600 hover:text-blue-600 transition-colors">
+            <Link href="/contato" className="text-gray-600 hover:text-yellow-600 transition-colors">
               Contato
             </Link>
           </div>
@@ -60,13 +60,13 @@ export default function Home() {
           <div className="flex items-center space-x-4">
             <Link 
               href="/login" 
-              className="text-blue-600 hover:text-blue-700 font-medium transition-colors"
+              className="text-yellow-600 hover:text-yellow-700 font-medium transition-colors"
             >
               Entrar
             </Link>
             <Link 
               href="/registro" 
-              className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+              className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-6 py-2 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-200"
             >
               Começar Agora
             </Link>
@@ -79,7 +79,7 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-6 leading-tight">
             Você não está
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-yellow-600 to-yellow-600 bg-clip-text text-transparent">
               {" "}sozinho
             </span>
           </h1>
@@ -92,7 +92,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
             <Link 
               href="/registro"
-              className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-2"
+              className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-2"
             >
               <MessageCircle className="w-5 h-5" />
               <span>Começar Conversa</span>
@@ -101,7 +101,7 @@ export default function Home() {
             
             <Link 
               href="/como-funciona"
-              className="border-2 border-blue-500 text-blue-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-blue-50 transition-all duration-300"
+              className="border-2 border-yellow-500 text-yellow-600 px-8 py-4 rounded-full text-lg font-semibold hover:bg-yellow-50 transition-all duration-300"
             >
               Como Funciona
             </Link>
@@ -118,7 +118,7 @@ export default function Home() {
               
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                  <div className="w-8 h-8 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center">
                     <Heart className="w-4 h-4 text-white" />
                   </div>
                   <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
@@ -129,7 +129,7 @@ export default function Home() {
                 </div>
                 
                 <div className="flex items-start space-x-3 justify-end">
-                  <div className="bg-blue-500 rounded-lg p-3 max-w-xs">
+                  <div className="bg-yellow-500 rounded-lg p-3 max-w-xs">
                     <p className="text-sm text-white">
                       Oi... estou me sentindo um pouco sozinho hoje.
                     </p>
@@ -165,7 +165,7 @@ export default function Home() {
               onMouseEnter={() => setIsHovered(feature.title)}
               onMouseLeave={() => setIsHovered(null)}
             >
-              <div className="text-blue-600 mb-4">
+              <div className="text-yellow-600 mb-4">
                 {feature.icon}
               </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-3">
@@ -180,18 +180,18 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-r from-blue-600 to-purple-700 py-16">
+      <section className="bg-gradient-to-r from-yellow-600 to-yellow-700 py-16">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold text-white mb-4">
             Pronto para começar sua jornada?
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-yellow-100 mb-8 max-w-2xl mx-auto">
             Junte-se a milhares de pessoas que já encontraram apoio e crescimento pessoal com o Amigo.
           </p>
           
           <Link 
             href="/registro"
-            className="bg-white text-blue-600 px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center space-x-2"
+            className="bg-white text-yellow-600 px-8 py-4 rounded-full text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300 inline-flex items-center space-x-2"
           >
             <span>Criar Conta Gratuita</span>
             <ArrowRight className="w-5 h-5" />
@@ -204,20 +204,20 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center">
                 <Heart className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold text-gray-800">Amigo</span>
             </div>
             
             <div className="flex items-center space-x-6 text-gray-600">
-              <Link href="/privacidade" className="hover:text-blue-600 transition-colors">
+              <Link href="/privacidade" className="hover:text-yellow-600 transition-colors">
                 Privacidade
               </Link>
-              <Link href="/termos" className="hover:text-blue-600 transition-colors">
+              <Link href="/termos" className="hover:text-yellow-600 transition-colors">
                 Termos
               </Link>
-              <Link href="/ajuda" className="hover:text-blue-600 transition-colors">
+              <Link href="/ajuda" className="hover:text-yellow-600 transition-colors">
                 Ajuda
               </Link>
             </div>

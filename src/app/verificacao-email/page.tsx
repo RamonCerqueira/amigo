@@ -171,20 +171,20 @@ export default function VerificacaoEmail() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-yellow-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         {/* Header */}
         <div className="text-center mb-8">
-          <Link href="/registro" className="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-700 mb-6">
+          <Link href="/registro" className="inline-flex items-center space-x-2 text-yellow-600 hover:text-yellow-700 mb-6">
             <ArrowLeft className="w-5 h-5" />
             <span>Voltar ao registro</span>
           </Link>
           
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+            <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center">
               <Heart className="w-7 h-7 text-white" />
             </div>
-            <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-3xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-600 bg-clip-text text-transparent">
               Amigo
             </span>
           </div>
@@ -195,7 +195,7 @@ export default function VerificacaoEmail() {
           <p className="text-gray-600">
             Enviamos um código de 6 dígitos para
           </p>
-          <p className="text-blue-600 font-medium">
+          <p className="text-yellow-600 font-medium">
             {userEmail}
           </p>
         </div>
@@ -213,14 +213,14 @@ export default function VerificacaoEmail() {
               <p className="text-gray-600 mb-4">
                 Sua conta foi ativada. Redirecionando...
               </p>
-              <div className="animate-spin w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full mx-auto"></div>
+              <div className="animate-spin w-6 h-6 border-2 border-yellow-500 border-t-transparent rounded-full mx-auto"></div>
             </div>
           ) : (
             <>
               {/* Email Icon */}
               <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Mail className="w-8 h-8 text-blue-600" />
+                <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Mail className="w-8 h-8 text-yellow-600" />
                 </div>
                 <p className="text-sm text-gray-600">
                   Digite o código de verificação abaixo
@@ -240,9 +240,9 @@ export default function VerificacaoEmail() {
                       onChange={(e) => handleInputChange(index, e.target.value)}
                       onKeyDown={(e) => handleKeyDown(index, e)}
                       onPaste={index === 0 ? handlePaste : undefined}
-                      className={`w-12 h-12 text-center text-xl font-bold border-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                      className={`w-12 h-12 text-center text-xl font-bold border-2 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all ${
                         error ? 'border-red-500' : 'border-gray-300'
-                      } ${digit ? 'border-blue-500 bg-blue-50' : ''}`}
+                      } ${digit ? 'border-yellow-500 bg-yellow-50' : ''}`}
                       disabled={isLoading}
                     />
                   ))}
@@ -263,7 +263,7 @@ export default function VerificacaoEmail() {
                   {timeLeft > 0 ? (
                     <p className="text-sm text-gray-600">
                       Código expira em{' '}
-                      <span className="font-medium text-blue-600">
+                      <span className="font-medium text-yellow-600">
                         {formatTime(timeLeft)}
                       </span>
                     </p>
@@ -278,7 +278,7 @@ export default function VerificacaoEmail() {
                 <button
                   type="submit"
                   disabled={isLoading || codigo.some(digit => !digit)}
-                  className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
+                  className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
                 >
                   {isLoading ? (
                     <>
@@ -300,11 +300,11 @@ export default function VerificacaoEmail() {
                 <button
                   onClick={handleResendCode}
                   disabled={isResending || (!canResend && timeLeft > 0) || resendCooldown > 0}
-                  className="text-blue-600 hover:text-blue-700 font-medium text-sm disabled:text-gray-400 disabled:cursor-not-allowed flex items-center space-x-1 mx-auto"
+                  className="text-yellow-600 hover:text-yellow-700 font-medium text-sm disabled:text-gray-400 disabled:cursor-not-allowed flex items-center space-x-1 mx-auto"
                 >
                   {isResending ? (
                     <>
-                      <div className="animate-spin w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full"></div>
+                      <div className="animate-spin w-4 h-4 border-2 border-yellow-600 border-t-transparent rounded-full"></div>
                       <span>Reenviando...</span>
                     </>
                   ) : resendCooldown > 0 ? (
@@ -328,7 +328,7 @@ export default function VerificacaoEmail() {
           </p>
           <p className="mt-1">
             Precisa de ajuda?{' '}
-            <Link href="/contato" className="text-blue-600 hover:underline">
+            <Link href="/contato" className="text-yellow-600 hover:underline">
               Entre em contato
             </Link>
           </p>

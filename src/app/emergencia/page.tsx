@@ -141,7 +141,7 @@ export default function EmergenciaPage() {
                 </button>
                 <button
                   onClick={() => ligarPara('192')}
-                  className="flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                  className="flex items-center space-x-2 bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition-colors"
                 >
                   <Phone className="w-4 h-4" />
                   <span>SAMU: 192</span>
@@ -183,7 +183,7 @@ export default function EmergenciaPage() {
                         onClick={() => ligarPara(recurso.telefone)}
                         className={`ml-4 px-4 py-2 rounded-lg text-white font-medium transition-colors ${
                           recurso.tipo === 'telefone' 
-                            ? 'bg-blue-600 hover:bg-blue-700' 
+                            ? 'bg-yellow-600 hover:bg-yellow-700' 
                             : 'bg-red-600 hover:bg-red-700'
                         }`}
                       >
@@ -197,7 +197,7 @@ export default function EmergenciaPage() {
 
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
               <h2 className="text-xl font-semibold text-gray-800 mb-4 flex items-center">
-                <MessageCircle className="w-5 h-5 mr-2 text-blue-600" />
+                <MessageCircle className="w-5 h-5 mr-2 text-yellow-600" />
                 Recursos Online
               </h2>
               
@@ -212,7 +212,7 @@ export default function EmergenciaPage() {
                       </div>
                       <button
                         onClick={() => abrirUrl(recurso.url)}
-                        className="ml-4 flex items-center space-x-1 text-blue-600 hover:text-blue-800 text-sm"
+                        className="ml-4 flex items-center space-x-1 text-yellow-600 hover:text-yellow-800 text-sm"
                       >
                         <span>Acessar</span>
                         <ExternalLink className="w-3 h-3" />
@@ -264,26 +264,26 @@ export default function EmergenciaPage() {
               </ul>
             </div>
 
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-              <h2 className="text-xl font-semibold text-blue-800 mb-4">
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+              <h2 className="text-xl font-semibold text-yellow-800 mb-4">
                 Lembre-se
               </h2>
               
-              <div className="space-y-3 text-blue-700">
+              <div className="space-y-3 text-yellow-700">
                 <p className="flex items-start space-x-2">
-                  <Heart className="w-4 h-4 mt-1 text-blue-600" />
+                  <Heart className="w-4 h-4 mt-1 text-yellow-600" />
                   <span>Você não está sozinho nesta luta</span>
                 </p>
                 <p className="flex items-start space-x-2">
-                  <Heart className="w-4 h-4 mt-1 text-blue-600" />
+                  <Heart className="w-4 h-4 mt-1 text-yellow-600" />
                   <span>Pedir ajuda é um sinal de força, não fraqueza</span>
                 </p>
                 <p className="flex items-start space-x-2">
-                  <Heart className="w-4 h-4 mt-1 text-blue-600" />
+                  <Heart className="w-4 h-4 mt-1 text-yellow-600" />
                   <span>Existe tratamento e você pode se sentir melhor</span>
                 </p>
                 <p className="flex items-start space-x-2">
-                  <Heart className="w-4 h-4 mt-1 text-blue-600" />
+                  <Heart className="w-4 h-4 mt-1 text-yellow-600" />
                   <span>Sua vida tem valor e significado</span>
                 </p>
               </div>
@@ -295,7 +295,7 @@ export default function EmergenciaPage() {
         <div className="mt-8 text-center">
           <a
             href="/dashboard"
-            className="inline-flex items-center space-x-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center space-x-2 px-6 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
           >
             <Heart className="w-4 h-4" />
             <span>Voltar para Conversa com Amigo</span>

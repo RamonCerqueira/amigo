@@ -135,20 +135,20 @@ export default function Registro() {
   const passwordStrength = getPasswordStrength(formData.password);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-yellow-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         {/* Header */}
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center space-x-2 text-blue-600 hover:text-blue-700 mb-6">
+          <Link href="/" className="inline-flex items-center space-x-2 text-yellow-600 hover:text-yellow-700 mb-6">
             <ArrowLeft className="w-5 h-5" />
             <span>Voltar ao início</span>
           </Link>
           
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+            <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center">
               <Heart className="w-7 h-7 text-white" />
             </div>
-            <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="text-3xl font-bold bg-gradient-to-r from-yellow-600 to-yellow-600 bg-clip-text text-transparent">
               Amigo
             </span>
           </div>
@@ -169,7 +169,7 @@ export default function Registro() {
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div 
-              className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-300"
+              className="bg-gradient-to-r from-yellow-500 to-yellow-600 h-2 rounded-full transition-all duration-300"
               style={{ width: `${(step / 2) * 100}%` }}
             ></div>
           </div>
@@ -191,7 +191,7 @@ export default function Registro() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all ${
                       errors.email ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="seu@email.com"
@@ -215,7 +215,7 @@ export default function Registro() {
                     name="nomeAnonimo"
                     value={formData.nomeAnonimo}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all"
                     placeholder="Como gostaria de ser chamado?"
                   />
                   <p className="mt-1 text-xs text-gray-500">
@@ -235,7 +235,7 @@ export default function Registro() {
                       name="password"
                       value={formData.password}
                       onChange={handleInputChange}
-                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all pr-12 ${
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all pr-12 ${
                         errors.password ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder="Sua senha segura"
@@ -296,7 +296,7 @@ export default function Registro() {
                       name="confirmPassword"
                       value={formData.confirmPassword}
                       onChange={handleInputChange}
-                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all pr-12 ${
+                      className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all pr-12 ${
                         errors.confirmPassword ? 'border-red-500' : 'border-gray-300'
                       }`}
                       placeholder="Confirme sua senha"
@@ -328,7 +328,7 @@ export default function Registro() {
                 <button
                   type="button"
                   onClick={handleNextStep}
-                  className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+                  className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200"
                 >
                   Próxima etapa
                 </button>
@@ -348,7 +348,7 @@ export default function Registro() {
                     name="telefone"
                     value={formData.telefone}
                     onChange={handleInputChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all ${
                       errors.telefone ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="(11) 99999-9999"
@@ -374,7 +374,7 @@ export default function Registro() {
                     onChange={handleInputChange}
                     min="13"
                     max="120"
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all ${
                       errors.idade ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="Sua idade"
@@ -401,7 +401,7 @@ export default function Registro() {
                     value={formData.endereco}
                     onChange={handleInputChange}
                     rows={3}
-                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all resize-none ${
                       errors.endereco ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="Rua, número, bairro, cidade, estado"
@@ -426,7 +426,7 @@ export default function Registro() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="flex-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    className="flex-1 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                   >
                     {isLoading ? 'Criando conta...' : 'Criar conta'}
                   </button>
@@ -438,7 +438,7 @@ export default function Registro() {
           <div className="mt-6 text-center">
             <p className="text-gray-600">
               Já tem uma conta?{' '}
-              <Link href="/login" className="text-blue-600 hover:text-blue-700 font-medium">
+              <Link href="/login" className="text-yellow-600 hover:text-yellow-700 font-medium">
                 Fazer login
               </Link>
             </p>
@@ -449,11 +449,11 @@ export default function Registro() {
         <div className="mt-6 text-center text-xs text-gray-500">
           <p>
             Ao criar uma conta, você concorda com nossos{' '}
-            <Link href="/termos" className="text-blue-600 hover:underline">
+            <Link href="/termos" className="text-yellow-600 hover:underline">
               Termos de Uso
             </Link>{' '}
             e{' '}
-            <Link href="/privacidade" className="text-blue-600 hover:underline">
+            <Link href="/privacidade" className="text-yellow-600 hover:underline">
               Política de Privacidade
             </Link>
           </p>
